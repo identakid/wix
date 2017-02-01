@@ -32,8 +32,12 @@ RUN wget -O wix310-binaries.zip 'http://download-codeplex.sec.s-msft.com/Downloa
     unzip wix310-binaries.zip && \
     rm -rf wix310-binaries.zip doc sdk
 
+USER root
+RUN apt-get install -y make
+
 # Allow this container to be run as an executable
 # that wraps the Wine envinronment
 ENV WINEDEBUG -all
 ENV PATH="${PATH}:${HOME}"
+RUN chown root:root ~/.wine
 CMD ["/bin/bash"]
